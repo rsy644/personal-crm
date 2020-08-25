@@ -53,7 +53,7 @@ class EntryTest extends TestCase
 				'updated_at' => date('Y-m-d H:i:s')
 			]);
 			$this->assertEquals('Open', $entry->status);
-            $this->assertEquals('Warm', $entry->warmth);  
+            $this->withoutExceptionHandling()->followingRedirects()->assertEquals('Warm', $entry->warmth)->assertSuccessful();  
 		} finally {
 			DB::connection(env('
 				DB_CONNECTION'))->
