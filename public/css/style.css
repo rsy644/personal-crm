@@ -1,0 +1,89 @@
+table.crm-entries tr td, table.crm-entries tr th {
+	padding: 0 10px 20px 10px;
+	border: 1px solid #ddd;
+}
+
+table.crm-entries {
+	width: 100%;
+}
+
+.crm-entries tr {
+	margin-bottom: 10px;
+}
+
+.add-button {
+	float: right;
+}
+
+.add-entry input[type="text"] {
+	width: 80px;
+}
+
+.panel h2 {
+	font-size: 20px;
+	margin-top: 20px;
+}
+
+a.btn.btn-success {
+    margin-bottom: 20px;
+}
+
+a.back-link {
+    display: block;
+    margin-bottom: 30px !important;
+}
+
+.panel {
+	padding: 20px;
+}
+
+#status, #warmth {
+	width: 117%;
+}
+
+input.crm-input {
+	width: 300px;
+}
+
+textarea.feedback {
+	width: 300px;
+}
+
+.stages-submit {
+	margin-left: 95px;
+}
+
+.delete_x {
+	cursor: pointer;
+}
+
+.crm-entries .btn-danger {
+	margin-top: 0 !important;
+}
+td.button {
+	padding-top: 10px !important;
+	padding-bottom: 10px !important;
+}
+
+#delete-button {
+	color: #ffffff;
+}
+
+.cold {
+	background-color: #ADD8E6;
+}
+
+.warm {
+	background-color: #8A360F;
+	color: #ffffff;
+}
+
+.hot {
+	background-color: #CD0000;
+	color: #ffffff;
+}
+
+.smokin {
+	background-color: #800000;
+	color: #ffffff;
+}
