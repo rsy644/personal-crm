@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Action;
+use App\Contact;
+use App\Company;
+use App\Role;
+use App\Stage;
 use Illuminate\Http\Request;
 
 use DB;
@@ -24,9 +28,13 @@ class ActionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($contact_id, $company_id, $role_id, $stage_id)
     {
-        return view('actions.create');
+        $contact = Contact::findOrFail($contact_id);
+        $company = Company::findOrFail($company_id);
+        $role = Role::findOrFail($role_id);
+        $stage = Stage::findOrFail($stage_id);
+        return view('actions.create')->with(['contact' => $contact, 'company' => $company, 'role' => $role, 'stage' => $stage]);
     }
 
     /**
@@ -42,13 +50,16 @@ class ActionController extends Controller
         if($request->stage == ""){
             return view('actions.create')->with('error', 'Please make sure a stage is entered before setting up an action');
         } else {
-            $stage_id = DB::table('stages')->where('description', '=', $request->stage)->get('id')[0];
-            $action->stage_id = $stage_id->id;
+            $contact = Contact::findOrFail($request->contact);
+            $company = Company::findOrFail($request->company);
+            $role = Role::findOrFail($request->role);
+            $stage = Stage::findOrFail($request->stage);
+            $action->stage_id = $stage->id;
         }
         $action->save();
         $statuses = ['Open', 'Closed', 'On Hold', 'Waiting For An Update'];
         $thermos = ['Cold', 'Warm', 'Hot', 'Smokin'];
-        return view('entries.create')->with(['statuses' => $statuses, 'thermos' => $thermos]); 
+        return view('entries.create')->with(['contact' => $contact, 'company' => $company, 'role' => $role, 'stage' => $stage, 'action' => $action, 'statuses' => $statuses, 'thermos' => $thermos]); 
     }
 
     /**
@@ -70,7 +81,7 @@ class ActionController extends Controller
      */
     public function edit(Action $action)
     {
-        //
+        return view('actions.edit');
     }
 
     /**
@@ -91,12 +102,15 @@ class ActionController extends Controller
      * @param  \App\Action  $action
      * @return \Illuminate\Http\Response
      */
-    public function destroy($action)
+    public function destroy($contact_id, $company_id, $role_id, $stage_id, $action_id)
     {
-        $action_id = DB::table('actions')->where('description', '=', $action)->get('id')[0];
-        $action = Action::findOrFail($action_id->id)->delete();
+        $contact = Contact::findOrFail($contact_id);
+        $company = Company::findOrFail($company_id);
+        $role = Role::findOrFail($role_id);
+        $stage = Stage::findOrFail($stage_id);
+        $action = Action::findOrFail($action_id)->delete();
         $statuses = ['Open', 'Closed', 'On Hold', 'Waiting For An Update'];
         $thermos = ['Cold', 'Warm', 'Hot', 'Smokin'];
-        return view('entries.create')->with(['statuses' => $statuses, 'thermos' => $thermos, 'delete_action' => true]);
+        return view('entries.create')->with(['statuses' => $statuses, 'contact' => $contact, 'company' => $company, 'role' => $role, 'stage' => $stage, 'thermos' => $thermos, 'delete_action' => true]);
     }
 }

@@ -10,7 +10,8 @@
 
 		<h2 style="clear: left; margin-bottom: 20px;">Add an Entry</h2>
 
-		<form method="POST" role="form" enctype="multipart/form-data" action="{{route('entries.store') }}">
+		<form method="POST" class="entry-form" role="form" enctype="multipart/form-data" action="{{route('entries.store') }}">
+
 		@csrf
 		@php session_start();
 			 if(isset($delete_contact) && $delete_contact != false){
@@ -34,6 +35,28 @@
 	 			$_SESSION['action'] = "";
 			 }
 		 @endphp
+
+		 @php
+		 	$schemas = array();
+
+		 	if(!empty($contact)){
+		 		$schemas['contact'] = $contact->id;
+		 	}
+		 	if(!empty($company)){
+		 		$schemas['company'] = $company->id;
+		 	}
+		 	if(!empty($role)){
+		 		$schemas['role'] = $role->id;
+		 	}
+		 	if(!empty($stage)){
+		 		$schemas['stage'] = $stage->id;
+		 	}
+		 	if(!empty($action)){
+		 		$schemas['action'] = $action->id;
+		 	}
+		 	
+		 @endphp
+
 			<div class="form-input">
 				<div class="row">
 					<div class="col-sm-1">
@@ -89,20 +112,20 @@
 					</div>
 					<div class="col-sm-3">
 						
-						@if(isset($_SESSION['contact']) && $_SESSION['contact'] != null)
-							<p>{{ $_SESSION['contact'] }}
-							<span class="delete_x" data-toggle="modal" data-target="#delete_modal_<?php echo $_SESSION['contact'] ?>" data-model="<?php echo $_SESSION['contact'] ?>">x</span>
+						@if(isset($contact))
+							<p>{{ $contact->name }}
 							</p>
-							<input type="hidden" name="contact" class="contact" value="{{ $_SESSION['contact'] }}">
+							<input type="hidden" name="contact" class="contact" value="{{ $contact->id }}">
 						@endif
 					</div>
 					<div class="col-sm-3">
-						<a class="btn btn-success entry-input contact" style="margin-top: -8px; color: #ffffff;" name="contact" id="contact" value="Add Contact">Add</a>
+						<a class="btn btn-success entry-input contact" href="{{ route('contacts.create') }}" style="margin-top: -8px; color: #ffffff;" name="contact" id="contact" value="Add Contact">Add</a>
 					</div>
 				</div>
 			</div>
 			<br/>
 			<br/>
+
 			<div class="form-input">
 				<div class="row">
 					<div class="col-sm-1">
@@ -110,18 +133,24 @@
 					</div>
 					<div class="col-sm-3">
 						
-						@if(isset($_SESSION['company']) && $_SESSION['company'] != null)
-							<p>{{ $_SESSION['company'] }}
-							<span class="delete_x" data-toggle="modal" data-target="#delete_modal_<?php echo $_SESSION['company']; ?>" data-model="<?php echo $_SESSION['company']; ?>">x</span>
+						@if(isset($company))
+							<p>{{ $company->name }}
 							</p>
-							<input type="hidden" name="company_name" class="company_name" value="{{ $_SESSION['company'] }}">
+							<input type="hidden" name="company_name" class="company_name" value="{{ $company->name }}">
 						@endif
 					</div>
+					
 					<div class="col-sm-3">
-						<a class="btn btn-primary entry-input company" style="margin-top: -8px; color: #ffffff;" name="company" value="Add Company">Add</a>
+						@if(isset($contact))
+							<a class="btn btn-primary entry-input company" href="{{ route('companies.create', $contact->id) }}" style="margin-top: -8px; color: #ffffff;" name="company" value="Add Company">Add</a>
+						@else
+							<a class="btn btn-secondary entry-input role" disabled="disabled" style="margin-top: -8px; color: #ffffff;" name="role" value="Add Role">Add</a>
+						@endif
+
 					</div>
 				</div>
 			</div>
+
 			<br/>
 			<br/>
 			<div class="form-input">
@@ -130,15 +159,17 @@
 						<label for="role">Role:</label>
 					</div>
 					<div class="col-sm-3">						
-						@if(isset($_SESSION['role']) && $_SESSION['role'] != null)
-							<p>{{ $_SESSION['role'] }}
-							<span class="delete_x" data-toggle="modal" data-target="#delete_modal_<?php echo $_SESSION['role']; ?>" data-model="<?php echo $_SESSION['role']; ?>">x</span>
-							</p>
-							<input type="hidden" name="role_name" class="entry-input role_name" value="{{ $_SESSION['role'] }}">
+						@if(isset($role))
+							<p>{{ $role->name }}</p>
+							<input type="hidden" name="role_name" class="entry-input role_name" value="{{ $role->name }}">
 						@endif
 					</div>
 					<div class="col-sm-3">
-						<a class="btn btn-secondary entry-input role" style="margin-top: -8px; color: #ffffff;" name="role" value="Add Role">Add</a>
+						@if(isset($company))
+							<a class="btn btn-secondary entry-input role" href="{{ route('roles.create', [$contact->id, $company->id]) }}" style="margin-top: -8px; color: #ffffff;" name="role" value="Add Role">Add</a>							
+						@else
+							<a class="btn btn-secondary entry-input role" style="margin-top: -8px; color: #ffffff;" name="role" value="Add Role" disabled="disabled">Add</a>			
+						@endif
 					</div>
 				</div>
 			</div>
@@ -150,15 +181,17 @@
 						<label for="stage">Stage:</label>
 					</div>
 					<div class="col-sm-3">						
-						@if(isset($_SESSION['stage']) && $_SESSION['stage'] != null)
-							<p>{{ $_SESSION['stage'] }}
-							<span class="delete_x" data-toggle="modal" data-target="#delete_modal_<?php echo $_SESSION['stage']; ?>" data-model="<?php echo $_SESSION['stage']; ?>">x</span>
-							</p>
-							<input type="hidden" name="stage_name" class="entry-input stage_name" value="{{ $_SESSION['stage'] }}">
+						@if(isset($stage))
+							<p>{{ $stage->description }}</p>
+							<input type="hidden" name="stage_name" class="entry-input stage_name" value="{{ $stage->description }}">
 						@endif
 					</div>
 					<div class="col-sm-3">
-						<a class="btn btn-dark entry-input stage" style="margin-top: -8px; color: #ffffff;" name="stage" value="Add Stage">Add</a>
+						@if(isset($role))
+							<a class="btn btn-dark entry-input stage" href="{{ route('stages.create', [$contact->id, $company->id, $role->id]) }}" style="margin-top: -8px; color: #ffffff;" name="stage" value="Add Stage">Add</a>
+						@else
+							<a class="btn btn-dark entry-input stage" disabled="disabled" style="margin-top: -8px; color: #ffffff;" name="stage" value="Add Stage">Add</a>
+						@endif
 					</div>
 				</div>
 			</div>
@@ -170,15 +203,17 @@
 						<label for="action">Action:</label>
 					</div>
 					<div class="col-sm-3">						
-						@if(isset($_SESSION['action']) && $_SESSION['action'] != null)
-							<p>{{ $_SESSION['action'] }}
-							<span class="delete_x" data-toggle="modal" data-target="#delete_modal_<?php echo $_SESSION['action']; ?>" data-model="<?php echo $_SESSION['action']; ?>">x</span>
-							</p>
-							<input type="hidden" name="action_name" class="entry-input action_name" value="{{ $_SESSION['action'] }}">
+						@if(isset($action))
+							<p>{{ $action->description }}</p>
+							<input type="hidden" name="action_name" class="entry-input action_name" value="{{ $action->description }}">
 						@endif
 					</div>
 					<div class="col-sm-3">
-						<a class="btn btn-danger entry-input action" style="margin-top: -8px; color: #ffffff;" name="action" value="Add Action">Add</a>
+						@if(isset($stage))
+							<a href="{{ route('actions.create', [$contact->id, $company->id, $role->id, $stage->id]) }}" class="btn btn-danger entry-input action" style="margin-top: -8px; color: #ffffff;" name="action" value="Add Action">Add</a>
+						@else
+							<a class="btn btn-danger entry-input action" disabled="disabled" style="margin-top: -8px; color: #ffffff;" name="action" value="Add Action">Add</a>
+						@endif
 					</div>
 				</div>
 			</div>
@@ -193,12 +228,6 @@
 			$('.entry-input').on('click', function() {
 				 var name = $(this).attr('name');
 				 save_values_to_session(name);
-			});
-
-			$('.delete_x').on('click', function() {
-				 var name = $(this).data('model');
-				 var type = $(this).parent().parent().prev().find('label').attr('for');
-				 delete_values(type, name);
 			});
 		});
 	</script>

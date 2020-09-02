@@ -16,11 +16,13 @@ function save_values_to_session(name){
 	// Send Ajax request to session.php, with the value set as the input field name in the POST data
 	$.post("/session.php", inputPairs);
 
-	 if(name != 'company'){
-	 	window.location = "http://127.0.0.1:8000/" + name + "s/create";
-	 } else {
-	 	window.location = "http://127.0.0.1:8000/companies/create";		
-	 }
+	 // possibly remove this section
+
+	 // if(name != 'company'){
+	 // 	window.location = "http://127.0.0.1:8000/" + name + "s/create";
+	 // } else {
+	 // 	window.location = "http://127.0.0.1:8000/companies/create";		
+	 // }
 }
 
 function delete_values(type, name){
@@ -32,7 +34,7 @@ function delete_values(type, name){
 }
 
 function save_values_to_contact_session(){
-	var inputs = ['name', 'telephone'];
+	var inputs = ['contact', 'telephone'];
 	var inputPairs = {};
 	for(var i = 0; i < inputs.length; i++){
 		var inputValue = $('.' + inputs[i]).val();

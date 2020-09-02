@@ -1,4 +1,4 @@
-table.crm-entries tr td, table.crm-entries tr th {
+.crm-entries tr td, table.crm-entries tr th {
 	padding: 0 10px 20px 10px;
 	border: 1px solid #ddd;
 }
@@ -86,4 +86,24 @@ td.button {
 .smokin {
 	background-color: #800000;
 	color: #ffffff;
+}
+
+a.entry-input[disabled^="disabled"] {
+    opacity: 0.5;
+    color: #555555;
+    background-color: #888888;
+    border: 1px solid #888888;
+}
+
+.entry-form input.submit {
+	margin-top: 50px;
+}
+
+.alert-danger ul, .alert-success ul {
+	margin-top: 0;
+    margin-bottom: 0;
+}
+
+.bullet-error {
+	list-style-type: none;
 }

@@ -58,6 +58,7 @@
 							@if(isset($_SESSION['agency']) && $_SESSION['agency'] != null)
 								<p id="agency" name="agency" class="crm-input agency">{{ $_SESSION['agency'] }}</p>
 								<input type="hidden" name="agency_name" class="agency_name" value="{{ $_SESSION['agency'] }}">
+								<input type="hidden" name="agency_id" class="agency_id" value="{{ $agency->id }}">
 							@elseif(isset($agency) && $agency->name != "")
 								<p id="agency" name="agency" class="crm-input agency">{{ $agency->name }}</p>
 							

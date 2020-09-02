@@ -27,9 +27,12 @@
 						@else
 							<input id="action" name="action" class="crm-input action">
 						@endif
-						@if(isset($_SESSION['stage']) && $_SESSION['stage'] != null)
-							<input type="hidden" id="stage" name="stage" class="crm-input stage" value="{{ $_SESSION['stage'] }}">
-						@endif
+
+						<input type="hidden" id="contact" name="contact" class="crm-input contact" value="{{ $contact->id }}">
+						<input type="hidden" id="company" name="company" class="crm-input company" value="{{ $company->id }}">
+						<input type="hidden" id="role" name="role" class="crm-input role" value="{{ $role->id }}">
+						<input type="hidden" id="stage" name="stage" class="crm-input stage" value="{{ $stage->id }}">
+
 					</div>
 				</div>
 			</div>

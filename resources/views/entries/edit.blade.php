@@ -8,9 +8,7 @@
 
 		<a class="back-link" href="{{ route('entries.index') }}">< Back</a>
 
-		<h2 style="clear: left; margin-bottom: 20px;">Edit an Entry</h2>
-
-		
+		<h2 style="clear: left; margin-bottom: 20px;">Edit an Entry</h2>		
 
 		<form method="Post" role="form" enctype="multipart/form-data" action="{{route('entries.store') }}">
 		@csrf
@@ -69,11 +67,10 @@
 					<div class="col-sm-1">
 						<label for="contact">Contact:</label>
 					</div>
-					<div class="col-sm-2">
+					<div class="col-sm-3">
 						
 						@if(isset($entry->contact_name) && $entry->contact_name != null)
 							<p>{{ $entry->contact_name }}
-							<span class="delete_x" data-toggle="modal" data-target="#delete_modal_<?php echo $entry->contact_name ?>" data-model="<?php echo $entry->contact_name ?>">x</span>
 							</p>
 							<input type="hidden" name="contact" class="contact" value="{{ $entry->contact_name }}">
 						@endif
@@ -90,17 +87,16 @@
 					<div class="col-sm-1">
 						<label for="company">Company:</label>
 					</div>
-					<div class="col-sm-2">
+					<div class="col-sm-3">
 						
 						@if(isset($entry->company_name) && $entry->company_name != null)
 							<p>{{ $entry->company_name }}
-							<span class="delete_x" data-toggle="modal" data-target="#delete_modal_<?php echo $entry->company_name; ?>" data-model="<?php echo $entry->company_name; ?>">x</span>
 							</p>
 							<input type="hidden" name="company_name" class="company_name" value="{{ $entry->company_name }}">
 						@endif
 					</div>
 					<div class="col-sm-3">
-						<a class="btn btn-primary entry-input company" href="{{ route('companies.edit', $entry->company_name) }}" style="margin-top: -8px; color: #ffffff;" name="company" value="Edit Company">Edit</a>
+						<a class="btn btn-primary entry-input company" href="{{ route('companies.edit', [$entry->company_name, $entry->entry_id]) }}" style="margin-top: -8px; color: #ffffff;" name="company" value="Edit Company">Edit</a>
 					</div>
 				</div>
 			</div>
@@ -111,16 +107,15 @@
 					<div class="col-sm-1">
 						<label for="role">Role:</label>
 					</div>
-					<div class="col-sm-2">						
+					<div class="col-sm-3">						
 						@if(isset($entry->role_name) && $entry->role_name != null)
 							<p>{{ $entry->role_name }}
-							<span class="delete_x" data-toggle="modal" data-target="#delete_modal_<?php echo $entry->role_name; ?>" data-model="<?php echo $entry->role_name; ?>">x</span>
 							</p>
 							<input type="hidden" name="role_name" class="entry-input role_name" value="{{ $entry->role_name }}">
 						@endif
 					</div>
 					<div class="col-sm-3">
-						<a class="btn btn-secondary entry-input role" href="{{ route('roles.edit', $entry->role_name) }}" style="margin-top: -8px; color: #ffffff;" name="role" value="Edit Role">Edit</a>
+						<a class="btn btn-secondary entry-input role" href="{{ route('roles.edit', [$entry->role_name, $entry->entry_id]) }}" style="margin-top: -8px; color: #ffffff;" name="role" value="Edit Role">Edit</a>
 					</div>
 				</div>
 			</div>
@@ -131,16 +126,15 @@
 					<div class="col-sm-1">
 						<label for="stage">Stage:</label>
 					</div>
-					<div class="col-sm-2">						
+					<div class="col-sm-3">						
 						@if(isset($entry->stage_description) && $entry->stage_description != null)
 							<p>{{ $entry->stage_description }}
-							<span class="delete_x" data-toggle="modal" data-target="#delete_modal_<?php echo $entry->stage_description; ?>" data-model="<?php echo $entry->stage_description; ?>">x</span>
 							</p>
 							<input type="hidden" name="stage_name" class="entry-input stage_name" value="{{ $entry->stage_description }}">
 						@endif
 					</div>
 					<div class="col-sm-3">
-						<a class="btn btn-dark entry-input stage" href="{{ route('stages.edit', $entry->stage_description) }}" style="margin-top: -8px; color: #ffffff;" name="stage" value="Edit Stage">Edit</a>
+						<a class="btn btn-dark entry-input stage" href="{{ route('stages.edit', [$entry->stage_description, $entry->entry_id]) }}" style="margin-top: -8px; color: #ffffff;" name="stage" value="Edit Stage">Edit</a>
 					</div>
 				</div>
 			</div>
@@ -151,10 +145,9 @@
 					<div class="col-sm-1">
 						<label for="action">Action:</label>
 					</div>
-					<div class="col-sm-2">						
+					<div class="col-sm-3">						
 						@if(isset($entry->description) && $entry->description != null)
 							<p>{{ $entry->description }}
-							<span class="delete_x" data-toggle="modal" data-target="#delete_modal_<?php echo $entry->description; ?>" data-model="<?php echo $entry->description; ?>">x</span>
 							</p>
 							<input type="hidden" name="action_name" class="entry-input action_name" value="{{ $entry->description }}">
 						@endif
@@ -164,7 +157,7 @@
 					</div>
 				</div>
 			</div>
-			<input type="submit" class="btn btn-success submit" value="Edit">
+			<input type="submit" class="btn btn-success submit" value="Update">
 		</form>
 	</div>
 

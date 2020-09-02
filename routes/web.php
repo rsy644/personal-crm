@@ -33,21 +33,35 @@ Route::get('/contacts/{contact_id}/{entry_id}/edit', ['as' => 'contacts.edit', '
 
 Route::get('/contacts/{contact}/delete', ['as' => 'contacts.destroy', 'uses' => 'ContactController@destroy']);
 
-Route::resource('companies', 'CompanyController', ['except' => 'destroy']);
+Route::resource('companies', 'CompanyController', ['except' => 'create, edit, destroy']);
 
-Route::get('/companies/{company}/delete', ['as' => 'companies.destroy', 'uses' => 'CompanyController@destroy']);
+Route::get('/companies/{contact_id}/create', ['as' => 'companies.create', 'uses' => 'CompanyController@create']);
 
-Route::resource('roles', 'RoleController', ['except' => 'destroy']);
+Route::get('/companies/{company_id}/{entry_id}/edit', ['as' => 'companies.edit', 'uses' => 'CompanyController@edit']);
 
-Route::get('/roles/{role}/delete', ['as' => 'roles.destroy', 'uses' => 'RoleController@destroy']);
+Route::post('/companies/{company}/delete', ['as' => 'companies.destroy', 'uses' => 'CompanyController@destroy']);
 
-Route::resource('stages', 'StageController', ['except' => 'destroy']);
+Route::resource('roles', 'RoleController', ['except' => 'create, edit, destroy']);
 
-Route::get('/stages/{stage}/delete', ['as' => 'stages.destroy', 'uses' => 'StageController@destroy']);
+Route::get('/roles/{contact_id}/{company_id}/create', ['as' => 'roles.create', 'uses' => 'RoleController@create']);
 
-Route::resource('actions', 'ActionController', ['except' => 'destroy']);
+Route::get('/roles/{role}/{entry_id}/edit', ['as' => 'roles.edit', 'uses' => 'RoleController@edit']);
 
-Route::get('/actions/{action}/delete', ['as' => 'actions.destroy', 'uses' => 'ActionController@destroy']);
+Route::post('/roles/{role}/delete', ['as' => 'roles.destroy', 'uses' => 'RoleController@destroy']);
+
+Route::resource('stages', 'StageController', ['except' => 'create, edit, destroy']);
+
+Route::get('/stages/{contact_id}/{company_id}/{role_id}/create', ['as' => 'stages.create', 'uses' => 'StageController@create']);
+
+Route::get('/stages/{stage}/{entry_id}/edit', ['as' => 'stages.edit', 'uses' => 'StageController@edit']);
+
+Route::post('/stages/{stage}/delete', ['as' => 'stages.destroy', 'uses' => 'StageController@destroy']);
+
+Route::resource('actions', 'ActionController', ['except' => 'create, destroy']);
+
+Route::get('/actions/{contact_id}/{company_id}/{role_id}/{stage_id}/create', ['as' => 'actions.create', 'uses' => 'ActionController@create']);
+
+Route::post('/actions/{action}/delete', ['as' => 'actions.destroy', 'uses' => 'ActionController@destroy']);
 
 Auth::routes();
 

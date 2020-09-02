@@ -15,7 +15,6 @@
 
 		<form method="POST" role="form" enctype="multipart/form-data" action="{{route('companies.store') }}">
 		@csrf
-
 			<div class="form-input">
 				<div class="row">
 					<div class="col-sm-1">

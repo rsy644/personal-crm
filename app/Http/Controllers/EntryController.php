@@ -15,7 +15,29 @@ class EntryController extends Controller
      */
     public function index()
     {
-        $entries = DB::table('entries')->join('contacts', 'entries.contact_id', '=', 'contacts.id')->join('companies', 'contacts.id', '=', 'companies.contact_id')->join('roles', 'companies.id', '=', 'roles.company_id')->join('stages', 'roles.id', '=', 'stages.role_id')->join('actions', 'stages.id', '=', 'actions.stage_id')->select('entries.id as entry_id', 'status', 'warmth', 'contacts.name as contact_name', 'contacts.telephone_number', 'companies.name as company_name', 'roles.name as role_name', 'stages.description as stage_description', 'actions.description')->get();
+        $entries = DB::table('entries')->join('contacts', 'entries.contact_id', '=', 'contacts.id')->join('companies', 'contacts.id', '=', 'companies.contact_id')->join('roles', 'companies.id', '=', 'roles.company_id')->join('stages', 'roles.id', '=', 'stages.role_id')->join('actions', 'stages.id', '=', 'actions.stage_id')->select('entries.id as entry_id', 'status', 'warmth', 'contacts.name as contact_name', 'contacts.telephone_number', 'companies.name as company_name', 'roles.name as role_name', 'stages.description as stage_description', 'actions.description as description')->get();
+
+        // $entries = DB::select('SELECT entries.id as entry_id,
+        // status,
+        // warmth,
+        // contacts.name as contact_name,
+        // contacts.telephone_number as telephone_number,
+        // companies.name as company_name,
+        // roles.name as role_name,
+        // stages.description as stage_description,
+        // actions.description as description
+        // FROM entries JOIN contacts
+        // ON entries.contact_id = contacts.id
+        // JOIN companies 
+        // ON contacts.id = companies.contact_id
+        // JOIN roles
+        // ON companies.id = roles.company_id
+        // JOIN stages
+        // ON roles.id = stages.role_id
+        // JOIN actions
+        // ON stages.id = actions.stage_id
+        // ');
+
 
         return view('entries.index')->with('entries', $entries);
     }
@@ -52,8 +74,14 @@ class EntryController extends Controller
         if($request->contact == ""){
             return view('entries.create')->with('error', 'Please make sure a contact is entered before setting up an entry');
         } else {
-            $contact_id = DB::table('contacts')->where('name', '=', $request->contact)->get('id')[0];
-            $entry->contact_id = $contact_id->id;
+            
+            if($request->update == "Y"){
+               $contact = DB::table('contacts')->where('name', '=', $request->contact)->get('id')[0];
+            } else {
+               $contact = DB::table('contacts')->where('id', '=', $request->contact)->get('id')[0]; 
+            }
+
+            $entry->contact_id = $contact->id;
         }
         $entry->save();
 

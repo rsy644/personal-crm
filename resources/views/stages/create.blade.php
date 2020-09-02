@@ -39,10 +39,10 @@
 					<div class="col-sm-3">
 						<textarea id="feedback" name="feedback" class="crm-input feedback" rows="15" cols="39"></textarea>
 					</div>
+					<input type="hidden" id="contact" name="contact" class="crm-input contact" value="{{ $contact->id }}">
+					<input type="hidden" id="company" name="company" class="crm-input company" value="{{ $company->id }}">
+					<input type="hidden" id="role" name="role" class="crm-input role" value="{{ $role->id }}">
 
-						@if(isset($_SESSION['role']) && $_SESSION['role'] != null)
-							<input type="hidden" id="role" name="role" class="crm-input role" value="{{ $_SESSION['role'] }}">
-						@endif
 						
 					</div>
 				</div>
