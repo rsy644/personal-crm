@@ -5,7 +5,6 @@
 
 	<div class="container add-entry">
 
-
 		<a class="back-link" href="{{ route('entries.index') }}">< Back</a>
 
 		<h2 style="clear: left; margin-bottom: 20px;">Edit an Entry</h2>		
@@ -134,7 +133,7 @@
 						@endif
 					</div>
 					<div class="col-sm-3">
-						<a class="btn btn-dark entry-input stage" href="{{ route('stages.edit', [$entry->stage_description, $entry->entry_id]) }}" style="margin-top: -8px; color: #ffffff;" name="stage" value="Edit Stage">Edit</a>
+						<a class="btn btn-dark entry-input stage" href="{{ route('stages.edit', [$entry->stage_description, $entry->entry_id, $entry->contact_id, $entry->company_id]) }}" style="margin-top: -8px; color: #ffffff;" name="stage" value="Edit Stage">Edit</a>
 					</div>
 				</div>
 			</div>

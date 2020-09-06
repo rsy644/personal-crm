@@ -39,7 +39,7 @@ class EntryController extends Controller
         // ');
 
 
-        return view('entries.index')->with('entries', $entries);
+        return view('entries.index')->with(['entries' => $entries]);
     }
 
     /**
@@ -109,7 +109,7 @@ class EntryController extends Controller
      */
     public function edit($entry_id)
     {
-        $entry = DB::table('entries')->join('contacts', 'entries.contact_id', '=', 'contacts.id')->join('companies', 'contacts.id', '=', 'companies.contact_id')->join('roles', 'companies.id', '=', 'roles.company_id')->join('stages', 'roles.id', '=', 'stages.role_id')->join('actions', 'stages.id', '=', 'actions.stage_id')->select('entries.id as entry_id', 'status', 'contacts.name as contact_name', 'contacts.telephone_number', 'companies.name as company_name', 'roles.name as role_name', 'stages.description as stage_description', 'actions.description')->where('entries.id', '=', $entry_id)->get();
+        $entry = DB::table('entries')->join('contacts', 'entries.contact_id', '=', 'contacts.id')->join('companies', 'contacts.id', '=', 'companies.contact_id')->join('roles', 'companies.id', '=', 'roles.company_id')->join('stages', 'roles.id', '=', 'stages.role_id')->join('actions', 'stages.id', '=', 'actions.stage_id')->select('entries.id as entry_id', 'status', 'contacts.id as contact_id', 'contacts.name as contact_name', 'contacts.telephone_number', 'companies.id as company_id', 'companies.name as company_name', 'roles.name as role_name', 'stages.description as stage_description', 'actions.description')->where('entries.id', '=', $entry_id)->get();
         $statuses = ['Open', 'Closed', 'On Hold', 'Waiting For An Update'];
         $thermos = ['Cold', 'Warm', 'Hot', 'Smokin'];
         return view('entries.edit')->with(['entry' => $entry[0], 'statuses' => $statuses, 'thermos' => $thermos]);

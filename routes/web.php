@@ -53,7 +53,7 @@ Route::resource('stages', 'StageController', ['except' => 'create, edit, destroy
 
 Route::get('/stages/{contact_id}/{company_id}/{role_id}/create', ['as' => 'stages.create', 'uses' => 'StageController@create']);
 
-Route::get('/stages/{stage}/{entry_id}/edit', ['as' => 'stages.edit', 'uses' => 'StageController@edit']);
+Route::get('/stages/{stage}/{entry_id}/{contact_id}/{company_id}/edit', ['as' => 'stages.edit', 'uses' => 'StageController@edit']);
 
 Route::post('/stages/{stage}/delete', ['as' => 'stages.destroy', 'uses' => 'StageController@destroy']);
 

@@ -35,29 +35,7 @@
 	 			$_SESSION['action'] = "";
 			 }
 		 @endphp
-
-		 @php
-		 	$schemas = array();
-
-		 	if(!empty($contact)){
-		 		$schemas['contact'] = $contact->id;
-		 	}
-		 	if(!empty($company)){
-		 		$schemas['company'] = $company->id;
-		 	}
-		 	if(!empty($role)){
-		 		$schemas['role'] = $role->id;
-		 	}
-		 	if(!empty($stage)){
-		 		$schemas['stage'] = $stage->id;
-		 	}
-		 	if(!empty($action)){
-		 		$schemas['action'] = $action->id;
-		 	}
-		 	
-		 @endphp
-
-			<div class="form-input">
+		 	<div class="form-input">
 				<div class="row">
 					<div class="col-sm-1">
 						<label for="status">Status</label>

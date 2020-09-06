@@ -16,18 +16,23 @@
 
 		<form method="POST" role="form" enctype="multipart/form-data" action="{{route('stages.store') }}">
 		@csrf
-
+			<input type="hidden" name="contact" class="contact" id="contact" value="<?php echo $contact_id; ?>">
+			<input type="hidden" name="company" class="company" id="company" value="<?php echo $company_id; ?>">
+			<input type="hidden" id="role" name="role" class="crm-input role" value="{{ $role->id }}">
 			<div class="form-input">
 				<div class="row">
 					<div class="col-sm-1">
 						<label for="name">Description</label>
 					</div>
 					<div class="col-sm-3">
-						@if(isset($_SESSION['stage']) && $_SESSION['stage'] != null)
-							<input id="stage" name="stage" class="crm-input stage" value="{{ $_SESSION['stage'] }}">
-						@else
-							<input id="stage" name="stage" class="crm-input stage">
-						@endif
+						<select id="stage" name="stage" class="crm-input stage">
+							<option value="#">-- Please select a stage --</option>
+							<option value="New Submission">New Submission</option>
+							<option value="In Review">In Review</option>
+							<option value="First Interview">First Interview</option>
+							<option value="Second Interview">Second Interview</option>
+							<option value="Background Check">Background Check</option>
+						</select>
 					</div>
 				</div>
 				<br/>
@@ -39,9 +44,7 @@
 					<div class="col-sm-3">
 						<textarea id="feedback" name="feedback" class="crm-input feedback" rows="15" cols="39"></textarea>
 					</div>
-					<input type="hidden" id="contact" name="contact" class="crm-input contact" value="{{ $contact->id }}">
-					<input type="hidden" id="company" name="company" class="crm-input company" value="{{ $company->id }}">
-					<input type="hidden" id="role" name="role" class="crm-input role" value="{{ $role->id }}">
+					
 
 						
 					</div>
