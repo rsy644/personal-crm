@@ -66,7 +66,8 @@ class RoleController extends Controller
 
         if($action == "Updating"){
 
-            $entry = DB::table('entries')->join('contacts', 'entries.contact_id', '=', 'contacts.id')->join('companies', 'contacts.id', '=', 'companies.contact_id')->join('roles', 'companies.id', '=', 'roles.company_id')->join('stages', 'roles.id', '=', 'stages.role_id')->join('actions', 'stages.id', '=', 'actions.stage_id')->select('entries.id as entry_id', 'status', 'contacts.name as contact_name', 'contacts.telephone_number', 'companies.name as company_name', 'roles.name as role_name', 'stages.description as stage_description', 'actions.description')->where('entries.id', '=', $request->entry_id)->get();
+            $entry = DB::table('entries')->join('contacts', 'entries.contact_id', '=', 'contacts.id')->join('companies', 'contacts.id', '=', 'companies.contact_id')->join('roles', 'companies.id', '=', 'roles.company_id')->join('stages', 'roles.id', '=', 'stages.role_id')->join('actions', 'stages.id', '=', 'actions.stage_id')->select('entries.id as entry_id', 'status', 'contacts.id as contact_id', 'contacts.name as contact_name', 'contacts.telephone_number', 'companies.id as company_id', 'companies.name as company_name', 'roles.id as role_id', 'roles.name as role_name', 'stages.id as stage_id', 'stages.description as stage_description', 'actions.description')->where('entries.id', '=', $request->entry_id)->get();
+
             return view('entries.edit')->with(['statuses' => $statuses, 'contact' => $contact[0], 'company' => $company[0], 'role' => $role, 'entry' => $entry[0], 'thermos' => $thermos]);
         } else {
             return view('entries.create')->with(['statuses' => $statuses, 'contact' => $contact[0], 'company' => $company[0], 'role' => $role, 'thermos' => $thermos]);
@@ -91,14 +92,14 @@ class RoleController extends Controller
      * @param  \App\Role  $role
      * @return \Illuminate\Http\Response
      */
-    public function edit($role_name, $entry_id)
+    public function edit($role_name, $entry_id, $contact_id, $company_id)
     {
         $role = DB::table('roles')->where('name', '=', $role_name)->get();
         if($role[0]->company_id != null){
-            $company = DB::table('companies')->where('id', '=', $role[0]->company_id)->select('name')->get();
-            return view('roles.edit')->with(['role' => $role[0], 'company' => $company, 'entry_id' => $entry_id]);
+            
+            return view('roles.edit')->with(['role' => $role[0], 'contact_id' => $contact_id, 'company_id' => $company_id, 'entry_id' => $entry_id]);
         } else {
-            return view('roles.edit')->with(['role' => $role, 'entry_id' => $entry_id]);
+            return view('roles.edit')->with(['role' => $role, 'contact_id' => $contact_id, 'company_id' => $company_id, 'entry_id' => $entry_id]);
         }
     }
 

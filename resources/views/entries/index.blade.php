@@ -40,7 +40,7 @@
                     <td class="smokin">{{ $entry->warmth }}</td>
                 @endif
                 <td>{{ $entry->contact_name }}</td>
-                <td>0{{ $entry->telephone_number }}</td>
+                <td>{{ $entry->telephone_number }}</td>
                 <td>{{ $entry->company_name }}</td>
                 <td>{{ $entry->role_name }}</td>
                 <td>{{ $entry->stage_description }}</td>

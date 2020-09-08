@@ -17,6 +17,8 @@
 		@csrf
 			<input type="hidden" name="update" class="update" id="update" value="Y">
 			<input type="hidden" name="role_id" class="role_id" id="role_id" value="<?php echo $role->id; ?>">
+			<input type="hidden" name="contact" class="contact" id="contact" value="<?php echo $contact_id; ?>">
+			<input type="hidden" name="company" class="company" id="company" value="<?php echo $company_id; ?>">
 			<input type="hidden" name="entry_id" class="entry_id" id="entry_id" value="<?php echo $entry_id; ?>">
 			<div class="form-input">
 				<div class="row">

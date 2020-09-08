@@ -60,7 +60,7 @@ class ContactController extends Controller
         $thermos = ['Cold', 'Warm', 'Hot', 'Smokin'];
         if($action == "Updating"){
 
-            $entry = DB::table('entries')->join('contacts', 'entries.contact_id', '=', 'contacts.id')->join('companies', 'contacts.id', '=', 'companies.contact_id')->join('roles', 'companies.id', '=', 'roles.company_id')->join('stages', 'roles.id', '=', 'stages.role_id')->join('actions', 'stages.id', '=', 'actions.stage_id')->select('entries.id as entry_id', 'status', 'contacts.name as contact_name', 'contacts.telephone_number', 'companies.name as company_name', 'roles.name as role_name', 'stages.description as stage_description', 'actions.description')->where('entries.id', '=', $request->entry_id)->get();
+            $entry = DB::table('entries')->join('contacts', 'entries.contact_id', '=', 'contacts.id')->join('companies', 'contacts.id', '=', 'companies.contact_id')->join('roles', 'companies.id', '=', 'roles.company_id')->join('stages', 'roles.id', '=', 'stages.role_id')->join('actions', 'stages.id', '=', 'actions.stage_id')->select('entries.id as entry_id', 'status', 'contacts.id as contact_id', 'contacts.name as contact_name', 'contacts.telephone_number', 'companies.id as company_id', 'companies.name as company_name', 'roles.id as role_id', 'roles.name as role_name', 'stages.id as stage_id', 'stages.description as stage_description', 'actions.description')->where('entries.id', '=', $request->entry_id)->get();
             return view('entries.edit')->with(['thermos' => $thermos, 'contact' => $contact, 'entry' => $entry[0], 'statuses' => $statuses]);
         } else {
             return view('entries.create')->with(['thermos' => $thermos, 'contact' => $contact, 'statuses' => $statuses]);

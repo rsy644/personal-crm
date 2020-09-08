@@ -114,7 +114,7 @@
 						@endif
 					</div>
 					<div class="col-sm-3">
-						<a class="btn btn-secondary entry-input role" href="{{ route('roles.edit', [$entry->role_name, $entry->entry_id]) }}" style="margin-top: -8px; color: #ffffff;" name="role" value="Edit Role">Edit</a>
+						<a class="btn btn-secondary entry-input role" href="{{ route('roles.edit', [$entry->role_name, $entry->entry_id, $entry->contact_id, $entry->company_id]) }}" style="margin-top: -8px; color: #ffffff;" name="role" value="Edit Role">Edit</a>
 					</div>
 				</div>
 			</div>
@@ -152,7 +152,7 @@
 						@endif
 					</div>
 					<div class="col-sm-3">
-						<a class="btn btn-danger entry-input action" href="{{ route('actions.edit', $entry->description) }}" style="margin-top: -8px; color: #ffffff;" name="action" value="Edit Action">Edit</a>
+						<a class="btn btn-danger entry-input action" href="{{ route('actions.edit', [$entry->contact_id, $entry->company_id, $entry->role_id, $entry->stage_id, $entry->description]) }}" style="margin-top: -8px; color: #ffffff;" name="action" value="Edit Action">Edit</a>
 					</div>
 				</div>
 			</div>

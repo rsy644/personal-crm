@@ -7,6 +7,7 @@
 	if(!isset($_SESSION)){
 		session_start();
 	}
+	
 	@endphp
 	<div class="container add-entry">
 		<a class="back-link" href="{{ route('entries.edit', $entry_id) }}">< Back</a>
@@ -17,7 +18,7 @@
 		@csrf
 			<input type="hidden" name="update" class="update" id="update" value="Y">
 			<input type="hidden" name="company_id" class="company_id" id="company_id" value="<?php echo $company->id; ?>">
-			
+			<input type="hidden" name="entry_id" class="entry_id" id="entry_id" value="<?php echo $entry_id; ?>">
 			<div class="form-input">
 				<div class="row">
 					<div class="col-sm-1">

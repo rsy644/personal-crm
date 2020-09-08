@@ -79,9 +79,10 @@ class ActionController extends Controller
      * @param  \App\Action  $action
      * @return \Illuminate\Http\Response
      */
-    public function edit(Action $action)
+    public function edit($contact_id, $company_id, $role_id, $stage_id, $description)
     {
-        return view('actions.edit');
+
+        return view('actions.edit')->with(['contact_id' => $contact_id, 'company_id' => $company_id, 'role_id' => $role_id, 'stage_id' => $stage_id, 'description' => $description]);
     }
 
     /**

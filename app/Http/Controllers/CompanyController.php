@@ -53,6 +53,7 @@ class CompanyController extends Controller
             $company->contact_id = $contact[0]->id;
 
         }
+        
         $company->name = $request->company;
         $company->town = $request->{'company-town'};
         $company->postcode = $request->{'company-postcode'};
@@ -60,12 +61,12 @@ class CompanyController extends Controller
         $company->save();
         $statuses = ['Open', 'Closed', 'On Hold', 'Waiting For An Update'];
         $thermos = ['Cold', 'Warm', 'Hot', 'Smokin'];
+        
         if($action == 'Updating'){
 
-            $entry = DB::table('entries')->join('contacts', 'entries.contact_id', '=', 'contacts.id')->join('companies', 'contacts.id', '=', 'companies.contact_id')->join('roles', 'companies.id', '=', 'roles.company_id')->join('stages', 'roles.id', '=', 'stages.role_id')->join('actions', 'stages.id', '=', 'actions.stage_id')->select('entries.id as entry_id', 'status', 'contacts.name as contact_name', 'contacts.telephone_number', 'companies.name as company_name', 'roles.name as role_name', 'stages.description as stage_description', 'actions.description')->where('entries.id', '=', $request->entry_id)->get();
-
-
+            $entry = DB::table('entries')->join('contacts', 'entries.contact_id', '=', 'contacts.id')->join('companies', 'contacts.id', '=', 'companies.contact_id')->join('roles', 'companies.id', '=', 'roles.company_id')->join('stages', 'roles.id', '=', 'stages.role_id')->join('actions', 'stages.id', '=', 'actions.stage_id')->select('entries.id as entry_id', 'status', 'contacts.id as contact_id', 'contacts.name as contact_name', 'contacts.telephone_number', 'companies.id as company_id', 'companies.name as company_name', 'roles.name as role_name', 'stages.description as stage_description', 'actions.description')->where('entries.id', '=', $request->entry_id)->get();
             return view('entries.edit')->with(['company' => $company, 'contact' => $contact[0], 'entry' => $entry[0], 'statuses' => $statuses, 'thermos' => $thermos]);
+            
         } else {
 
             return view('entries.create')->with(['company' => $company, 'contact' => $contact[0], 'statuses' => $statuses, 'thermos' => $thermos]);
