@@ -14,6 +14,25 @@
 
 
     @else
+        <div class="tile-row">
+            <div class="tile-counter">
+                <h2>New Submissions</h2>
+                <span>2</span>
+            </div>
+            <div class="tile-counter">
+                <h2>In Review</h2>
+                <span>6</span>
+            </div>
+            <div class="tile-counter">
+                <h2>At Interview</h2>
+                <span>9</span>
+            </div>
+            <div class="tile-counter">
+                <h2>Background Check</h2>
+                <span>3</span>
+            </div>
+        </div>
+
         <table class="crm-entries">
             <tr>
                 <th>Status</th>

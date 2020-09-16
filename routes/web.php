@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', ['as' => 'entry.index', 'uses' => 'entryController@index']);
+Route::get('/', ['as' => 'entry.index', 'uses' => 'EntryController@index']);
 
 
 Route::resource('agencies', 'AgencyController', ['except' => 'edit, update']);

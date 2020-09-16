@@ -107,3 +107,32 @@ a.entry-input[disabled^="disabled"] {
 .bullet-error {
 	list-style-type: none;
 }
+
+.tile-counter h2 {
+	font-size: 14px;
+	margin-top: 10px;
+}
+
+.tile-counter {
+	height: 200px;
+	width: 200px;
+	float: left;
+	margin-bottom: 30px;
+	text-align: center;
+	border: 1px solid #ddd;
+	margin-right: 103px;
+}
+
+.tile-counter:last-child {
+	margin-right: 0;
+}
+
+.tile-counter span {
+	font-weight: bold;
+	font-size: 60px;
+	margin-top: 20px;
+}
+
+.tile-row {
+	display: inline-block;
+}
