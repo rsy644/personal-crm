@@ -90,6 +90,8 @@ class StageController extends Controller
             ON stages.id = actions.stage_id
             WHERE entries.id = ?
             ', [$request->entry_id]);
+
+            
             
             return view('entries.edit')->with(['role' => $role[0], 'stage' => $stage, 'stages' => $stages, 'contact' => $contact, 'company' => $company, 'statuses' => $statuses, 'thermos' => $thermos, 'entry' => $entry[0]]);
             

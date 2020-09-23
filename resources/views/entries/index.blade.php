@@ -17,19 +17,19 @@
         <div class="tile-row">
             <div class="tile-counter">
                 <h2>New Submissions</h2>
-                <span>2</span>
+                <span>{{ count($submissions) == 0 ? '-' : count($submissions) }}</span>
             </div>
             <div class="tile-counter">
                 <h2>In Review</h2>
-                <span>6</span>
+                <span>{{ count($review) == 0 ? '-' : count($review) }}</span>
             </div>
             <div class="tile-counter">
                 <h2>At Interview</h2>
-                <span>9</span>
+                <span>{{ count($interview) == 0 ? '-' : count($interview) }}</span>
             </div>
             <div class="tile-counter">
                 <h2>Background Check</h2>
-                <span>3</span>
+                <span>{{ count($background) == 0 ? '-' : count($background) }}</span>
             </div>
         </div>
 
@@ -65,7 +65,22 @@
                 <td>{{ $entry->stage_description }}</td>
                 <td>{{ $entry->description }}</td>
                 <td class="button"><a class="btn btn-success" href="{{route('entries.edit', $entry->entry_id) }}" id="edit-button" value="Edit">Edit</a></td>
-                <td><a class="btn btn-danger" id="delete-button" value="Delete" href="{{route('entries.destroy', $entry->entry_id) }}">Delete</a></td>
+                <td><a class="btn btn-danger" data-toggle="modal" data-target="#delete_modal_<?php echo $entry->entry_id; ?>" data-model="<?php echo $entry->entry_id; ?>" id="delete-button" value="Delete">Delete</a></td>
+                <div class="modal fade" id="delete_modal_<?php echo $entry->entry_id; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">          
+                                <h4 class="modal-title" id="myModalLabel">Are you sure you want to delete entry '<?php echo $entry->company_name; ?>'?</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" href="{{route('entries.destroy', $entry->entry_id) }}" data-val="{{ $entry->entry_id }}" class="delete_button btn btn-success">Yes</button>
+                                <button type="button" class="btn btn-primary">No</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+           
             </tr>
             @endforeach
         </table>

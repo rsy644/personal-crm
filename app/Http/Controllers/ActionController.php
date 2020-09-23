@@ -45,10 +45,15 @@ class ActionController extends Controller
      */
     public function store(Request $request)
     {
-        $action = new Action();
-        $action->description = $request->action;
-        if($request->stage == ""){
-            return view('actions.create')->with('error', 'Please make sure a stage is entered before setting up an action');
+
+        if($request->update == "Y"){            
+            $action = Action::findOrFail($request->action); //25
+        } else {
+            $action = new Action();
+        }
+        $action->description = $request->action_description;
+        if($request->action_description == ""){
+            return view('actions.edit')->with('error', 'Please make sure a action is entered before submitting an action');
         } else {
             $contact = Contact::findOrFail($request->contact);
             $company = Company::findOrFail($request->company);
@@ -81,8 +86,9 @@ class ActionController extends Controller
      */
     public function edit($contact_id, $company_id, $role_id, $stage_id, $description)
     {
+        $action = DB::table('actions')->where('description', '=', $description)->get();
 
-        return view('actions.edit')->with(['contact_id' => $contact_id, 'company_id' => $company_id, 'role_id' => $role_id, 'stage_id' => $stage_id, 'description' => $description]);
+        return view('actions.edit')->with(['contact_id' => $contact_id, 'company_id' => $company_id, 'role_id' => $role_id, 'stage_id' => $stage_id, 'description' => $description, 'action_id' => $action[0]->id]);
     }
 
     /**

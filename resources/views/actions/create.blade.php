@@ -23,9 +23,9 @@
 					</div>
 					<div class="col-sm-3">
 						@if(isset($_SESSION['action']) && $_SESSION['action'] != null)
-							<input id="action" name="action" class="crm-input action" value="{{ $_SESSION['action'] }}">
+							<input id="action_description" name="action_description" class="crm-input action" value="{{ $_SESSION['action'] }}">
 						@else
-							<input id="action" name="action" class="crm-input action">
+							<input id="action_description" name="action_description" class="crm-input action">
 						@endif
 
 						<input type="hidden" id="contact" name="contact" class="crm-input contact" value="{{ $contact->id }}">
